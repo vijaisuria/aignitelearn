@@ -1,0 +1,7 @@
+POST http://localhost:8000/generate-learning-path HTTP/1.1
+Content-Type: application/json
+
+{
+  "role": "Flask Developer",
+  "userSkills": ["HTML", "CSS", "Python"]
+}

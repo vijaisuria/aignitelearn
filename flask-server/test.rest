@@ -1,0 +1,27 @@
+POST https://maps.geoapify.com/v1/staticmap?apiKey=e0954994cc3540e6ad07ea0e95549c91 HTTP/1.1
+
+{
+    "style": "osm-bright",
+    "scaleFactor": 2,
+    "width": 600,
+    "height": 400,
+    "center": {
+        "lat": 47.526243,
+        "lon": -122.30354
+    },
+    "zoom": 14.1339
+}
+
+###
+
+POST http://127.0.0.1:5000/goals HTTP/1.1
+Content-Type: application/json
+
+{
+    "UserID": 4,
+    "GoalName": "Run 5k",
+    "GoalType": "Long-Term",
+    "GoalDescription": "Run 5k twice a week",
+    "StartDate": "2023-10-05",
+    "TargetDate": "2023-12-31"
+}

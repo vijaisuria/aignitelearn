@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .login-details {
+            margin-bottom: 20px;
+        }
+
+        .login-details p {
+            margin: 8px 0;
+        }
+
+        .map-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-footer {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-links {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-links:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="email-container">
+        <div class="header">
+            <img src="https://vijaisuria.github.io/mit-healthcentre-website/EduConnect.png" alt="App Logo">
+            <h1>{{ company_name }}</h1>
+        </div>
+
+        <div class="content">
+            <p class="greeting">Dear {{ user_name }},</p>
+            <p>We detected a new login to your account from an unrecognized device. For your security, please review the
+                details below:</p>
+
+            <div class="login-details">
+                <p><strong>Time:</strong> {{ time }}</p>
+                <p><strong>IP Address:</strong> {{ ip }}</p>
+                <p><strong>Latitude:</strong> {{ lat }}</p>
+                <p><strong>Longitude:</strong> {{ long }}</p>
+            </div>
+
+            <p><strong>Map Location of Login:</strong></p>
+            <img src="{{ map_image_url }}" alt="Map Location" class="map-image">
+
+            <p>If you did not authorize this login, please <a href="#" class="footer-links">secure your account</a>.</p>
+            <p>If you recognize this login and no further action is needed, you can simply ignore this email.</p>
+        </div>
+
+        <div class="alert-footer">
+            <p>Other Important Alerts:</p>
+            <p>- If you've noticed any unusual activity, we recommend changing your password and enabling two-factor
+                authentication.</p>
+            <p>- Review all recent login activity from your account settings.</p>
+            <br>
+            <p>Need help? Our support team is available 24/7 at <a href="mailto:support@company.com"
+                    class="footer-links">support@company.com</a> or call [Phone Number].</p>
+        </div>
+
+        <div class="alert-footer">
+            <p>&copy; {{ year }} {{ company_name }}. All rights reserved.</p>
+            <p><a href="https://www.company.com" class="footer-links">Company Website</a> | <a
+                    href="https://www.company.com/privacy-policy" class="footer-links">Privacy Policy</a></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

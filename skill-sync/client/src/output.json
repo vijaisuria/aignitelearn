@@ -1,0 +1,173 @@
+[
+  {
+    "field": "Programming Fundamentals",
+    "skills": [
+      {
+        "description": "Fundamental programming concepts using Python.",
+        "skill": "Python (already have)",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Mathematical Foundations",
+    "skills": [
+      {
+        "description": "Understanding vectors, matrices, and operations.",
+        "skill": "Linear Algebra",
+        "prerequisites": []
+      },
+      {
+        "description": "Derivatives, integrals, and their applications.",
+        "skill": "Calculus",
+        "prerequisites": []
+      },
+      {
+        "description": "Probability distributions, hypothesis testing, and statistical inference.",
+        "skill": "Probability & Statistics",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Computer Science Fundamentals",
+    "skills": [
+      {
+        "description": "Arrays, linked lists, trees, graphs, and algorithms.",
+        "skill": "Data Structures & Algorithms",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Version Control",
+    "skills": [
+      {
+        "description": "Using Git for version control and collaboration.",
+        "skill": "Git",
+        "prerequisites": []
+      },
+      {
+        "description": "Working with remote repositories on GitHub.",
+        "skill": "Version Control (e.g., GitHub)",
+        "prerequisites": ["Git"]
+      }
+    ]
+  },
+  {
+    "field": "Data Management",
+    "skills": [
+      {
+        "description": "SQL for database management and querying.",
+        "skill": "SQL",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Data Preprocessing",
+    "skills": [
+      {
+        "description": "Data cleaning, transformation, and manipulation using Pandas and NumPy.",
+        "skill": "Data Wrangling & Cleaning with Pandas/NumPy",
+        "prerequisites": ["Python", "Data Structures & Algorithms"]
+      }
+    ]
+  },
+  {
+    "field": "Machine Learning",
+    "skills": [
+      {
+        "description": "Supervised and unsupervised learning algorithms.",
+        "skill": "Machine Learning Fundamentals (Supervised/Unsupervised Learning)",
+        "prerequisites": [
+          "Linear Algebra",
+          "Calculus",
+          "Probability & Statistics",
+          "Data Wrangling & Cleaning with Pandas/NumPy"
+        ]
+      },
+      {
+        "description": "Evaluating model performance using metrics.",
+        "skill": "Model Evaluation Metrics",
+        "prerequisites": [
+          "Machine Learning Fundamentals (Supervised/Unsupervised Learning)"
+        ]
+      },
+      {
+        "description": "Hyperparameter tuning and model selection techniques.",
+        "skill": "Model Selection & Tuning (Hyperparameter Optimization)",
+        "prerequisites": ["Model Evaluation Metrics"]
+      }
+    ]
+  },
+  {
+    "field": "Deep Learning",
+    "skills": [
+      {
+        "description": "Neural networks, convolutional neural networks (CNNs), and recurrent neural networks (RNNs).",
+        "skill": "Deep Learning Fundamentals (Neural Networks, CNNs, RNNs)",
+        "prerequisites": [
+          "Machine Learning Fundamentals (Supervised/Unsupervised Learning)",
+          "Linear Algebra",
+          "Calculus"
+        ]
+      }
+    ]
+  },
+  {
+    "field": "Cloud Computing",
+    "skills": [
+      {
+        "description": "Working with cloud platforms like AWS, GCP, or Azure.",
+        "skill": "Cloud Computing (AWS, GCP, or Azure)",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Model Deployment & Monitoring",
+    "skills": [
+      {
+        "description": "Deploying and monitoring machine learning models.",
+        "skill": "Deployment & Monitoring of ML Models",
+        "prerequisites": ["Cloud Computing (AWS, GCP, or Azure)"]
+      }
+    ]
+  },
+  {
+    "field": "API Development",
+    "skills": [
+      {
+        "description": "Developing RESTful APIs.",
+        "skill": "API Development (REST)",
+        "prerequisites": ["Software Engineering Principles"]
+      }
+    ]
+  },
+  {
+    "field": "Software Engineering",
+    "skills": [
+      {
+        "description": "Software engineering principles and best practices.",
+        "skill": "Software Engineering Principles",
+        "prerequisites": ["Python"]
+      }
+    ]
+  },
+  {
+    "field": "Communication & Problem-Solving",
+    "skills": [
+      {
+        "description": "Effective communication skills for technical and non-technical audiences.",
+        "skill": "Communication Skills",
+        "prerequisites": []
+      },
+      {
+        "description": "Problem-solving and critical thinking skills.",
+        "skill": "Problem-Solving & Critical Thinking",
+        "prerequisites": []
+      }
+    ]
+  }
+]

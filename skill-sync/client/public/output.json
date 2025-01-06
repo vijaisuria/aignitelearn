@@ -1,0 +1,72 @@
+[
+  {
+    "field": "Fundamentals",
+    "skills": [
+      {
+        "skill": "Problem-solving skills",
+        "description": "Breaking down problems.",
+        "prerequisites": []
+      },
+      {
+        "skill": "Communication skills",
+        "description": "Communicating technical info.",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Web Fundamentals",
+    "skills": [
+      {
+        "skill": "HTML",
+        "description": "Structure of web pages.",
+        "prerequisites": []
+      },
+      {
+        "skill": "CSS",
+        "description": "Styling pages.",
+        "prerequisites": ["HTML"]
+      }
+    ]
+  },
+  {
+    "field": "JavaScript",
+    "skills": [
+      {
+        "skill": "JavaScript",
+        "description": "Core concepts and DOM.",
+        "prerequisites": ["HTML", "CSS"]
+      }
+    ]
+  },
+  {
+    "field": "Frontend Frameworks",
+    "skills": [
+      {
+        "skill": "React",
+        "description": "UI components, state, hooks.",
+        "prerequisites": ["JavaScript"]
+      }
+    ]
+  },
+  {
+    "field": "Version Control",
+    "skills": [
+      {
+        "skill": "Git",
+        "description": "Version control basics.",
+        "prerequisites": []
+      }
+    ]
+  },
+  {
+    "field": "Testing & Debugging",
+    "skills": [
+      {
+        "skill": "Testing Frameworks",
+        "description": "Unit tests with Jest/Cypress.",
+        "prerequisites": ["JavaScript"]
+      }
+    ]
+  }
+]

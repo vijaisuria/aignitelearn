@@ -1,0 +1,340 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Onboarding{% endblock %}
+
+{% block head %}
+<script type='text/javascript'
+    src='https://ircdname.azureedge.net/immersivereadersdk/immersive-reader-sdk.1.4.0.js'></script>
+<script type='text/javascript' src="{{url_for('static', filename='js/immersive_reder_helper.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/onboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="body-content">
+
+    <!-- Progress Stepper-->
+    <div class="container mt-5">
+        <div class="stepper">
+            <div class="step active" id="step-1">
+                <div class="rectangle">1</div>
+                <div>Welcome</div>
+            </div>
+
+            <div class="step active" id="step-1">
+                <div class="rectangle">2</div>
+                <div>Personal Info</div>
+            </div>
+            <div class="step" id="step-2">
+                <div class="rectangle">3</div>
+                <div>Education</div>
+            </div>
+            <div class="step" id="step-3">
+                <div class="rectangle">4</div>
+                <div>Skill Set</div>
+            </div>
+            <div class="step" id="step-4">
+                <div class="rectangle">5</div>
+                <div>Career Goals</div>
+            </div>
+        </div>
+    </div>
+
+
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <form id="user-preferences-form">
+                        <!-- Intro slide -->
+                        <div class="card py-3 section-card" id="section-0">
+                            <div class="row">
+                                <img src="{{ url_for('static', filename='images/logo.svg') }}"
+                                    class="card-img-top card-pic slowfloat2s" alt="meduse">
+
+                                <div class="card-body">
+                                    <h5 class="card-title" id="ir-title">
+                                        Dear {{ user.Name }},
+                                    </h5>
+                                    <div class="line"></div>
+                                    <p class="card-text" id="ir-content" lang="en-us">
+                                        Welcome to AIgnite Learn! We're thrilled to have you join our community
+                                        of learners. Our AI-powered platform empowers individuals of all backgrounds,
+                                        from students to seasoned professionals, to achieve their educational goals.
+                                        <br /><br />
+                                        To personalize your learning experience with recommended courses and
+                                        targeted support, please complete your onboarding form using the following
+                                        email address: {{ user.Email }}. We're here to support you on your
+                                        educational journey. Let's ignite your potential together!
+
+                                        <br /><br />
+                                        Sincerely,
+                                        <br />The
+                                        AIgnite Learn Team
+                                    </p>
+
+                                    <button class="immersive-reader-button" data-button-style="iconAndText"
+                                        data-locale="en"></button>
+
+                                    <!-- <div class='immersive-reader-button' data-button-style='icon'></div> -->
+
+                                    <i class="fas fa-disease slowfloat3s"></i>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Personal Information Card -->
+                        <div class="card py-3 section-card" id="section-1">
+                            <div class="row">
+                                <img src="{{ url_for('static', filename='images/logo.svg') }}"
+                                    class="card-img-top card-pic slowfloat2s" alt="aignitelearn">
+                                <div class="card-body">
+                                    <h5 class="card-title">Personal Information</h5>
+                                    <div class="line mb-3"></div>
+                                    <div class="form-group mb-3">
+                                        <label for="bio">Bio</label>
+                                        <textarea class="form-control" id="bio" name="bio" rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="desiredJobTitle">Desired Job Title</label>
+                                        <input type="text" class="form-control" id="desiredJobTitle"
+                                            name="desiredJobTitle" placeholder="Enter desired job title" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="targetIndustry">Target Industry</label>
+                                        <input type="text" class="form-control" id="targetIndustry"
+                                            name="targetIndustry" placeholder="Enter target industry" required>
+                                    </div>
+                                    <i class="fas fa-user slowfloat3s"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Educational Background Card -->
+                        <div class="card py-3 section-card d-none" id="section-2">
+                            <div class="row">
+                                <img src="{{ url_for('static', filename='images/logo.svg') }}"
+                                    class="card-img-top card-pic slowfloat2s" alt="education">
+                                <div class="card-body">
+                                    <h5 class="card-title">Educational Background</h5>
+                                    <div class="line mb-3"></div>
+                                    <div class="form-group mb-3">
+                                        <label for="educationStatus">Education Status</label>
+                                        <select class="form-control" id="educationStatus" name="educationStatus">
+                                            <option value="School">School</option>
+                                            <option value="Undergraduate">Undergraduate</option>
+                                            <option value="Postgraduate">Postgraduate</option>
+                                            <option value="Professional">Professional</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="preferredTopics">Preferred Topics</label>
+                                        <input type="text" class="form-control" id="preferredTopics"
+                                            name="preferredTopics" placeholder="Enter topics of interest" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="studySchedule">Preferred Study Schedule</label>
+                                        <input type="text" class="form-control" id="studySchedule" name="studySchedule"
+                                            placeholder="Enter study schedule (e.g., Weekdays, weekends)" required>
+                                    </div>
+                                    <i class="fas fa-graduation-cap slowfloat3s"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills & Proficiency Card -->
+                        <div class="card py-3 section-card d-none" id="section-3">
+                            <div class="row">
+                                <img src="{{ url_for('static', filename='images/logo.svg') }}"
+                                    class="card-img-top card-pic slowfloat2s" alt="education">
+                                <div class="card-body">
+                                    <h5 class="card-title">Skills & Proficiency</h5>
+                                    <div class="line mb-3"></div>
+                                    <div class="form-group mb-3">
+                                        <label for="skills">Skills</label>
+                                        <input type="text" class="form-control" id="skills" name="skills"
+                                            placeholder="Enter your skills, separated by commas" required>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="proficiencyLevels">Proficiency Levels</label>
+                                        <input type="text" class="form-control" id="proficiencyLevels"
+                                            name="proficiencyLevels"
+                                            placeholder="Enter proficiency levels for each skill" required>
+                                    </div>
+                                    <i class="fa fa-cogs slowfloat3s"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Career Goals Card -->
+                        <div class="card my-3 section-card d-none" id="section-5">
+                            <div class="row">
+                                <img src="{{ url_for('static', filename='images/logo.svg') }}"
+                                    class="card-img-top card-pic slowfloat2s" alt="education">
+                                <div class="card-body">
+                                    <h5 class="card-title">Career Goals</h5>
+                                    <div class="line mb-3"></div>
+                                    <div class="form-group mb-3">
+                                        <label for="learningStyle">Learning Style</label>
+                                        <select class="form-control" id="learningStyle" name="learningStyle">
+                                            <option value="Visual">Visual</option>
+                                            <option value="Auditory">Auditory</option>
+                                            <option value="Kinesthetic">Kinesthetic</option>
+                                            <option value="Reading/Writing">Reading/Writing</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="primaryPurpose">Primary Purpose</label>
+                                        <select class="form-control" id="primaryPurpose" name="primaryPurpose">
+                                            <option value="Career Upskill">Career Upskill</option>
+                                            <option value="Career Transition">Career Transition</option>
+                                            <option value="Entrance Exams Support">Entrance Exams Support</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="targetSalary">Target Salary</label>
+                                        <input type="number" class="form-control" id="targetSalary" name="targetSalary"
+                                            placeholder="Enter your target salary" required>
+                                    </div>
+                                    <i class="fa-solid fa-business-time"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="text-center" style="z-index: 100;">
+                            <button type="button" class="btn btn-secondary btn-lg m-4" id="back-button"
+                                disabled>Back</button>
+                            <button type="button" class="btn btn-primary btn-lg m-4" id="next-button">Next</button>
+                            <button type="submit" class="btn btn-success btn-lg d-none"
+                                id="submit-button">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    $(".immersive-reader-button").click(function () {
+        handleLaunchImmersiveReader();
+    });
+
+    function handleLaunchImmersiveReader() {
+        getTokenAndSubdomainAsync()
+            .then(function (response) {
+                const token = response["token"];
+                const subdomain = response["subdomain"];
+
+                // Learn more about chunk usage and supported MIME types https://docs.microsoft.com/azure/cognitive-services/immersive-reader/reference#chunk
+                const data = {
+                    title: $("#ir-title").text(),
+                    chunks: [{
+                        content: $("#ir-content").html(),
+                        mimeType: "text/html"
+                    }]
+                };
+
+                // Learn more about options https://docs.microsoft.com/azure/cognitive-services/immersive-reader/reference#options
+                const options = {
+                    "onExit": exitCallback,
+                    "uiZIndex": 2000
+                };
+
+                ImmersiveReader.launchAsync(token, subdomain, data, options)
+                    .catch(function (error) {
+                        console.log(error);
+                        alert("Error in launching the Immersive Reader. Check the console.");
+                    });
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert("Error in getting the Immersive Reader token and subdomain. Check the console.");
+            });
+    }
+
+    function exitCallback() {
+        console.log("This is the callback function. It is executed when the Immersive Reader closes.");
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const sections = document.querySelectorAll('.section-card');
+        const steps = document.querySelectorAll('.step');
+        const backButton = document.getElementById('back-button');
+        const nextButton = document.getElementById('next-button');
+        const submitButton = document.getElementById('submit-button');
+        let currentSection = 0;
+
+        function updateSectionVisibility() {
+            sections.forEach((section, index) => {
+                section.classList.toggle('d-none', index !== currentSection);
+            });
+
+            // Enable or disable navigation buttons
+            backButton.disabled = currentSection === 0;
+            nextButton.classList.toggle('d-none', currentSection === sections.length - 1);
+            submitButton.classList.toggle('d-none', currentSection !== sections.length - 1);
+
+            // Update the stepper progress
+            updateStepperProgress();
+        }
+
+        function updateStepperProgress() {
+            steps.forEach((step, index) => {
+                if (index < currentSection) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (index === currentSection) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        // Event listeners for navigation
+        backButton.addEventListener('click', () => {
+            if (currentSection > 0) currentSection--;
+            updateSectionVisibility();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentSection < sections.length - 1) currentSection++;
+            updateSectionVisibility();
+        });
+
+        // Submit form data
+        document.getElementById('user-preferences-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch('/api/submit-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => alert('Form submitted successfully!'))
+                .catch(error => alert('An error occurred while submitting the form.'));
+        });
+
+        // Initialize visibility
+        updateSectionVisibility();
+    });
+</script>
+
+{% endblock %}

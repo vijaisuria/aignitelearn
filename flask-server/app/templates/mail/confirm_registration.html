@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Confirmation</title>
+    <style>
+        @font-face {
+            font-family: "Source Sans Pro";
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format("woff");
+        }
+
+        @font-face {
+            font-family: "Source Sans Pro";
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format("woff");
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e9ecef;
+            font-family: "Source Sans Pro", Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border: 0;
+        }
+
+        a {
+            color: #1a82e2;
+            text-decoration: none;
+        }
+
+        .preheader {
+            display: none;
+            visibility: hidden;
+            font-size: 0;
+            line-height: 0;
+            color: transparent;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .email-header {
+            padding: 36px 24px;
+            text-align: center;
+        }
+
+        .email-body {
+            background-color: #ffffff;
+            padding: 36px 24px;
+            border-top: 3px solid #d4dadf;
+        }
+
+        .email-body h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .email-body p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 16px 0;
+        }
+
+        .email-footer {
+            text-align: center;
+            padding: 24px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 36px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #1a82e2;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preheader">
+        We are thrilled to have you join our community of learners revolutionizing education in India.
+    </div>
+
+    <table>
+        <tr>
+            <td align="center">
+                <table class="email-container">
+
+                    <tr>
+                        <td class="email-header">
+                            <!-- TODO: Update the URL -->
+                            <a href="https://www.blogdesire.com" target="_blank">
+                                <!-- TODO: Update the Logo Image -->
+                                <img src="https://vijaisuria.github.io/mit-healthcentre-website/EduConnect.png"
+                                    alt="EduConnect Logo" style="width: 240px;">
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="email-body">
+                            <h1>Welcome to AIgnite Learn!</h1>
+                            <p>Dear {{ user_name }},</p>
+                            <p>Your account has been successfully created with the email address: {{ email }}.</p>
+                            <p>To verify your email and activate your account, please click the button below:</p>
+                            <p style="text-align: center;">
+                                <a href="{{ verification_link }}" class="btn">Verify your account</a>
+                            </p>
+                            <p>If that doesn't work, copy and paste the following link in your browser:</p>
+                            <p><a href="{{ verification_link }}">{{ verification_link }}</a></p>
+                            <p>As a platform leveraging AI, real-time analytics, and interactive experiences, we
+                                personalize learning journeys to enhance success in exams. We aim to empower individuals
+                                like you to achieve your aspirations.</p>
+                            <p>Cheers,<br>The AIgnite Learn Team</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="email-footer">
+                            <p>You received this email because you signed up for an account. If this wasn't you, you can
+                                safely ignore this email.</p>
+                            <!-- TODO: Update the URL -->
+                            <p><a href="https://www.blogdesire.com" target="_blank">Unsubscribe</a> | MIT, Anna
+                                University, Chennai. 600044</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

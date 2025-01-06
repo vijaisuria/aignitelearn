@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Goal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #001f3f;
+            color: white;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        h1 {
+            color: #6a0dad;
+            font-weight: bold;
+        }
+
+        .container {
+            background-color: white;
+            color: #001f3f;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .goal-item {
+            background-color: #f8f9fa;
+            border: 1px solid #001f3f;
+            border-radius: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .goal-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            font-weight: bold;
+            color: #001f3f;
+        }
+
+        input, textarea, select {
+            border: 1px solid #001f3f;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #6a0dad;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #001f3f;
+            color: white;
+        }
+
+        #goal-list .list-group-item {
+            background-color: #6a0dad;
+            color: white;
+            border-radius: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #goal-list .list-group-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #goal-list .list-group-item button {
+            background-color: #ff4136;
+            border: none;
+        }
+
+        #goal-list .list-group-item button:hover {
+            background-color: #ff0000;
+        }
+
+        /* Modal styling */
+        #goal-details-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 500px;
+            background-color: white;
+            color: #001f3f;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        #goal-details-modal.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Celebration animation */
+        @keyframes celebrate {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: gold;
+            animation: celebrate 1s ease-out;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .goal-item {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Create Your Goal</h1>
+        <ul id="goal-list" class="list-group mb-4"></ul>
+
+        <form id="goal-form" style="display: block;">
+            <div id="goal-container">
+                <div class="goal-item mb-4 p-3 border rounded">
+                    <div class="form-group">
+                        <label for="goal-name">Goal Name:</label>
+                        <input type="text" class="form-control" name="goal-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goal-type">Goal Type:</label>
+                        <select class="form-control" name="goal-type" required>
+                            <option value="short-term">Short Term</option>
+                            <option value="long-term">Long Term</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goal-description">Goal Description:</label>
+                        <textarea class="form-control" name="goal-description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" class="form-control" name="start-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end-date">End Date:</label>
+                        <input type="date" class="form-control" name="end-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="milestones">Milestones:</label>
+                        <textarea class="form-control" name="milestones" rows="3" placeholder="Enter milestones separated by commas"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority-level">Priority Level:</label>
+                        <select class="form-control" name="priority-level" required>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category-tag">Category Tag:</label>
+                        <input type="text" class="form-control" name="category-tag" placeholder="e.g., Health, Career" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Goal</button>
+        </form>
+        <div id="add-goal-button-container" class="text-center mt-3" style="display: none;">
+            <button id="add-goal-button" class="btn btn-primary">+</button>
+        </div>
+    </div>
+
+    <!-- Modal for goal details -->
+    <div id="modal-overlay"></div>
+    <div id="goal-details-modal"></div>
+
+
+    <script>
+        const goalList = document.getElementById('goal-list');
+        const goalForm = document.getElementById('goal-form');
+        const goalContainer = document.getElementById('goal-container');
+        const addGoalButtonContainer = document.getElementById('add-goal-button-container');
+        const modal = document.getElementById('goal-details-modal');
+        const overlay = document.getElementById('modal-overlay');
+        const celebrationMessage = document.getElementById('celebration-message');
+
+        function checkGoalsAndUpdateView() {
+            if (goalList.children.length === 0) {
+                goalForm.reset();
+                goalForm.style.display = 'block';
+                addGoalButtonContainer.style.display = 'none';
+            }
+        }
+
+        goalForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const goalItem = goalContainer.querySelector('.goal-item');
+            const goalName = goalItem.querySelector('input[name="goal-name"]').value;
+            const goalDetails = {
+                type: goalItem.querySelector('select[name="goal-type"]').value,
+                description: goalItem.querySelector('textarea[name="goal-description"]').value,
+                startDate: goalItem.querySelector('input[name="start-date"]').value,
+                endDate: goalItem.querySelector('input[name="end-date"]').value,
+                milestones: goalItem.querySelector('textarea[name="milestones"]').value.split(',').map(m => m.trim()),
+                priority: goalItem.querySelector('select[name="priority-level"]').value,
+                category: goalItem.querySelector('input[name="category-tag"]').value,
+            };
+
+            const goalListItem = document.createElement('li');
+            goalListItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+            const goalNameSpan = document.createElement('span');
+            goalNameSpan.textContent = goalName;
+            goalNameSpan.style.cursor = 'pointer';
+            goalNameSpan.addEventListener('click', function() {
+                modal.innerHTML = `<h3>${goalName}</h3>
+                    <p><b>Type:</b> ${goalDetails.type}</p>
+                    <p><b>Description:</b> ${goalDetails.description}</p>
+                    <p><b>Start Date:</b> ${goalDetails.startDate}</p>
+                    <p><b>End Date:</b> ${goalDetails.endDate}</p>
+                    <p><b>Milestones:</b>
+                        <ul id="milestones-list">
+                            ${goalDetails.milestones.map(m => `<li>${m}</li>`).join('')}
+                        </ul>
+                    </p>
+                    <p><b>Priority:</b> ${goalDetails.priority}</p>
+                    <p><b>Category:</b> ${goalDetails.category}</p>`;
+
+                const milestonesList = modal.querySelector('#milestones-list');
+                milestonesList.querySelectorAll('li').forEach(milestone => {
+                    milestone.addEventListener('click', function() {
+                        milestone.style.textDecoration = milestone.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+
+                        const allCompleted = Array.from(milestonesList.children).every(li => li.style.textDecoration === 'line-through');
+                        if (allCompleted) showCelebration();
+                    });
+                });
+
+                modal.classList.add('show');
+                overlay.classList.add('show');
+            });
+
+            overlay.addEventListener('click', function() {
+                modal.classList.remove('show');
+                overlay.classList.remove('show');
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '-';
+            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm');
+            deleteButton.addEventListener('click', function() {
+                goalList.removeChild(goalListItem);
+                checkGoalsAndUpdateView();
+            });
+
+            goalListItem.appendChild(goalNameSpan);
+            goalListItem.appendChild(deleteButton);
+            goalList.appendChild(goalListItem);
+
+            goalForm.style.display = 'none';
+            addGoalButtonContainer.style.display = 'block';
+        });
+
+        document.getElementById('add-goal-button').addEventListener('click', function() {
+            goalForm.reset();
+            goalForm.style.display = 'block';
+            addGoalButtonContainer.style.display = 'none';
+        });
+
+        checkGoalsAndUpdateView();
+    </script>
+</body>
+</html>

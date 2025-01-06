@@ -1,0 +1,415 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+<style>
+    /* Cards container */
+    .row {
+        margin-top: 20px;
+    }
+
+    /* Individual Card */
+    .card {
+        border: 1px solid white;
+        border-radius: 10px;
+        color: white;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Card Image */
+    .card img.card-img-top {
+        border-bottom: 3px solid white;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    /* Card Title */
+    .card .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .card img.card-img-top {
+        border-bottom: 3px solid white;
+        height: 200px;
+        /* Fixed height for images */
+        width: 100%;
+        /* Ensure the image takes the full width */
+        object-fit: cover;
+        /* Make sure the image covers the space without distortion */
+    }
+
+    /* Card Text */
+    .card .card-text {
+        font-size: 1rem;
+        color: black;
+        margin-bottom: 15px;
+    }
+
+    /* Hashtag Style */
+    .hashtag {
+        display: inline-block;
+        background-color: #f8f9fa;
+        color: #343a40;
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 20px;
+        margin-top: 10px;
+    }
+
+    .search-bar-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+    }
+
+    .search-bar-container .search-bar {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .matching-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+
+    .matching-cards-container .card {
+        flex: 1 1 100%;
+        /* Ensures that each card takes up 100% of the container's width on mobile */
+        margin-bottom: 15px;
+    }
+
+    /* Media Query for larger screens */
+    @media (min-width: 576px) {
+        .matching-cards-container .card {
+            flex: 1 1 30%;
+            /* On larger screens, each card will take up 30% width */
+        }
+    }
+
+
+    /* Filter Options */
+    .filter-options {
+        position: absolute;
+        top: 50px;
+        right: 10px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        width: 200px;
+        z-index: 1000;
+        color: black;
+    }
+
+    .filter-options h6 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .filter-options .category,
+    .filter-options .tag {
+        margin: 10px 0;
+    }
+
+    .filter-options input[type="checkbox"] {
+        margin-right: 5px;
+        color: black;
+    }
+
+    h6 {
+        color: black;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="col-12 col-sm-9 col-md-10 right-primary" id="right-section">
+    <!-- Search Bar -->
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="form-control search-bar" placeholder="Search...">
+        <button id="searchButton" class="btn btn-secondary" onclick="toggleFilterOptions()">
+            <i class="bi-filter"></i>
+        </button>
+    </div>
+    <!-- Filter Options -->
+    <div class="filter-options" id="filterOptions">
+        <div class="category">
+            <h6>Categories</h6>
+            <label for="aiCheckbox">
+                <input type="checkbox" id="aiCheckbox" onclick="applyFilters()" style="color: black;"> AI/ML
+            </label>
+            <br>
+            <label for="newsCheckbox">
+                <input type="checkbox" id="newsCheckbox" onclick="applyFilters()"> News
+            </label>
+        </div>
+        <div class="tag">
+            <h6>Tags</h6>
+            <label for="aiHashtag">
+                <input type="checkbox" id="aiHashtag" onclick="applyFilters()"> #AI
+            </label>
+            <br>
+            <label for="mlHashtag">
+                <input type="checkbox" id="mlHashtag" onclick="applyFilters()"> #MachineLearning
+            </label>
+            <br>
+            <label for="dsHashtag">
+                <input type="checkbox" id="dsHashtag" onclick="applyFilters()"> #DataScience
+            </label>
+        </div>
+    </div>
+    <div class="section" id="recommendedForYou">
+        <h3>Recommended for You</h3>
+        <div class="matching-cards-container" id="recommendedCardsContainer">
+            <!-- Dynamic recommended cards will be injected here -->
+        </div>
+    </div>
+
+    <!-- Top Trends Section -->
+    <div class="section" id="topTrends">
+        <h3>Top Trends</h3>
+        <div class="matching-cards-container" id="topTrendsContainer">
+            <!-- Dynamic top trend cards will be injected here -->
+        </div>
+    </div>
+    <!-- Other Cards -->
+    <div class="section" id="others">
+        <h4>Others</h4>
+        <div class="matching-cards-container" id="otherCardsContainer">
+            <!-- Other cards will be injected here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Sample data for cards with image URLs
+    const cards = [
+        {
+            title: "AI Basics",
+            text: "Learn the fundamentals of Artificial Intelligence and how it works.",
+            hashtags: ["#AIBasics", "#MachineLearning", "#ai"],
+            category: "AI/ML",
+            image: "images/ai.jpg" // Specify image URL for this card
+        },
+        {
+            title: "Machine Learning",
+            text: "Dive into the world of ML and discover its applications.",
+            hashtags: ["#MachineLearning", "#ai"],
+            category: "News",
+            image: "images/ml.jpg" // Specify image URL for this card
+        },
+        {
+            title: "AI Ethics",
+            text: "Learn about ethical challenges in AI development and deployment.",
+            hashtags: ["#AIEthics"],
+            category: "AI/ML",
+            image: "images/ai-ethics.jpg" // Specify image URL for this card
+        },
+        {
+            title: "Data Science",
+            text: "Explore data-driven decision-making with Data Science.",
+            hashtags: ["#DataScience"],
+            category: "AI/ML",
+            image: "images/ds.jpg" // Specify image URL for this card
+        },
+        {
+            title: "Deep Learning",
+            text: "Understand neural networks and advanced AI concepts.",
+            hashtags: ["#DeepLearning"],
+            category: "News",
+            image: "images/dl.webp" // Specify image URL for this card
+        },
+        {
+            title: "AI Tools",
+            text: "Discover tools that simplify AI development for professionals.",
+            hashtags: ["#AITools"],
+            category: "News",
+            image: "images/ai-tools.webp" // Specify image URL for this card
+        },
+        {
+            title: "Web Development",
+            text: "Explore the latest trends in web development, from frameworks to tools.",
+            hashtags: ["#WebDev", "#Frontend", "#Backend"],
+            category: "Technology",
+            image: "images/webDev.jpg" // Specify image URL for this card
+        },
+        {
+            title: "App Development",
+            text: "Learn about mobile app development and the best practices for building scalable apps.",
+            hashtags: ["#AppDev", "#MobileApps", "#TechTrends"],
+            category: "Technology",
+            image: "images/appDev.avif" // Specify image URL for this card
+        },
+        {
+            title: "DevOps",
+            text: "Understand DevOps practices that help improve collaboration.",
+            hashtags: ["#DevOps", "#CI/CD", "#Automation"],
+            category: "Technology",
+            image: "images/devOps.jpeg" // Specify image URL for this card
+        },
+        {
+            title: "Artificial Intelligence in Healthcare",
+            text: "Learn how AI is transforming the healthcare industry with applications in diagnosis, treatment planning, and patient care. Gain insights into the future of medical technology powered by AI.",
+            hashtags: ["#AIinHealthcare", "#ArtificialIntelligence", "#HealthcareTech"],
+            category: "Technology",
+            image: "images/ai-healthcare.avif" // Specify image URL for this card
+        },
+        {
+            title: "Data Analysis with Python",
+            text: "Master the art of data analysis using Python. Learn how to manipulate data, visualize insights, and apply statistical techniques to make data-driven decisions.",
+            hashtags: ["#DataAnalysis", "#Python", "#DataScience"],
+            category: "Technology",
+            image: "images/DA-analysis.webp" // Specify image URL for this card
+        }
+    ];
+
+    // Function to display cards with images
+    // Function to display cards with images for different sections
+    function displayCards() {
+        const recommendedContainer = document.getElementById('recommendedCardsContainer');
+        const topTrendsContainer = document.getElementById('topTrendsContainer');
+        const otherContainer = document.getElementById('otherCardsContainer');
+
+        // Clear all containers before displaying new cards
+        recommendedContainer.innerHTML = '';
+        topTrendsContainer.innerHTML = '';
+        otherContainer.innerHTML = '';
+
+        // Display Recommended for You (First three cards)
+        const recommendedCards = cards.slice(0, 3);
+        recommendedCards.forEach(card => {
+            const cardElement = createCardElement(card);
+            recommendedContainer.innerHTML += cardElement;
+        });
+
+        // Display Top Trends (Next set of cards)
+        const topTrendCards = cards.slice(3, 6);
+        topTrendCards.forEach(card => {
+            const cardElement = createCardElement(card);
+            topTrendsContainer.innerHTML += cardElement;
+        });
+
+        // Display Other Cards (Remaining cards)
+        const otherCards = cards.slice(6);
+        otherCards.forEach(card => {
+            const cardElement = createCardElement(card);
+            otherContainer.innerHTML += cardElement;
+        });
+    }
+
+    // Helper function to create a card element
+    function createCardElement(card) {
+        return `
+        <div class="card">
+            <img src="${card.image}" class="card-img-top" alt="${card.title}" />
+            <div class="card-body">
+                <h5 class="card-title">${card.title}</h5>
+                <p class="card-text">${card.text}</p>
+                ${card.hashtags.map(tag => `<div class="hashtag">${tag}</div>`).join('')}
+            </div>
+        </div>
+    `;
+    }
+
+    // Display all cards initially
+    displayCards();
+
+    // Add search functionality to filter through all cards
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const searchTerm = this.value.toLowerCase();
+        const filteredCards = cards.filter(card =>
+            card.hashtags.some(tag => tag.toLowerCase().includes(searchTerm))
+        );
+        displayFilteredCards(filteredCards);
+    });
+
+    // Function to display filtered cards (could be used after filtering by category or search term)
+    function displayFilteredCards(filteredCards) {
+        const recommendedContainer = document.getElementById('recommendedCardsContainer');
+        const topTrendsContainer = document.getElementById('topTrendsContainer');
+        const otherContainer = document.getElementById('otherCardsContainer');
+
+        recommendedContainer.innerHTML = '';
+        topTrendsContainer.innerHTML = '';
+        otherContainer.innerHTML = '';
+
+        filteredCards.forEach(card => {
+            const cardElement = createCardElement(card);
+            // Decide where to place the card based on its category or relevance
+            if (card.category === "AI/ML") {
+                recommendedContainer.innerHTML += cardElement;
+            } else if (card.category === "News") {
+                topTrendsContainer.innerHTML += cardElement;
+            } else {
+                otherContainer.innerHTML += cardElement;
+            }
+        });
+    }
+
+    // Show filter options
+    function toggleFilterOptions() {
+        const filterOptions = document.getElementById('filterOptions');
+        const searchButton = document.getElementById('searchButton');
+        const buttonRect = searchButton.getBoundingClientRect(); // Get the button's position
+
+        // Set the filter box's position relative to the button
+        filterOptions.style.top = `${buttonRect.bottom + window.scrollY + 10}px`; // Position just below the button
+        filterOptions.style.left = `${buttonRect.right - filterOptions.offsetWidth - 250}px`; // Position near the right end of the button
+
+        // Toggle the display of the filter options
+        filterOptions.style.display = filterOptions.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Apply filters based on category and hashtags
+    function applyFilters() {
+        const aiCheckbox = document.getElementById('aiCheckbox');
+        const newsCheckbox = document.getElementById('newsCheckbox');
+        const aiHashtag = document.getElementById('aiHashtag');
+        const mlHashtag = document.getElementById('mlHashtag');
+        const dsHashtag = document.getElementById('dsHashtag');
+
+        const filteredCards = cards.filter(card => {
+            const categoryMatch =
+                (aiCheckbox.checked && card.category === "AI/ML") ||
+                (newsCheckbox.checked && card.category === "News");
+
+            const hashtagMatch =
+                (aiHashtag.checked && card.hashtags.includes("#ai")) ||
+                (mlHashtag.checked && card.hashtags.includes("#MachineLearning")) ||
+                (dsHashtag.checked && card.hashtags.includes("#DataScience"));
+
+            return categoryMatch || hashtagMatch || (!aiCheckbox.checked && !newsCheckbox.checked && !aiHashtag.checked && !mlHashtag.checked && !dsHashtag.checked);
+        });
+
+        displayCards(filteredCards);
+
+        // Close filter options if clicked outside
+        document.addEventListener('click', function (event) {
+            const filterOptions = document.getElementById('filterOptions');
+            const searchButton = document.getElementById('searchButton');
+            if (!filterOptions.contains(event.target) && event.target !== searchButton) {
+                filterOptions.style.display = 'none';
+            }
+        });
+    }
+</script>
+{% endblock %}

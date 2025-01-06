@@ -1,0 +1,361 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block head %}
+<style>
+    .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-header img {
+        border-radius: 50%;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.2);
+        /* Semi-transparent white */
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* Border with transparency */
+        backdrop-filter: blur(10px);
+        /* Glassmorphism blur effect */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for depth */
+        border-radius: 15px;
+        /* Smooth rounded corners */
+        padding: 1rem;
+        overflow: hidden;
+        color: var(--text-color);
+    }
+
+    .card .card-header {
+        background: rgba(255, 255, 255, 0.1);
+        /* Subtle background for header */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        /* Header divider */
+        padding: 0.75rem 1rem;
+        border-radius: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="profile-header">
+        <img alt="Profile picture of the user, a placeholder image with a neutral background" class="img-fluid"
+            height="150" src="{{ url_for('static', filename='images/profile.png') }}" width="150" />
+        <h2 class="mt-3">
+            Welcome {{ user.Name }}
+        </h2>
+        <p>
+            {{ user.Email }}
+        </p>
+    </div>
+
+    <!-- Personal Info Section -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <h5>Personal Info</h5>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                data-bs-target="#personalInfoModal">Edit</button>
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{user.Name}}</p>
+            <p><strong>Email:</strong> {{ user.Email }} </p>
+            <p><strong>Bio:</strong> {{ user.Bio }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Educational Background Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Educational Background</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#educationModal">Edit</button>
+                </div>
+                <div class="card-body">
+                    <p><strong>Education Status:</strong> {{user.EducationStatus}}</p>
+                    <p><strong>School:</strong> {{user.EducationStatus}} </p>
+                    <p><strong>Topics of Interest:</strong> {{user.PreferredTopics}} </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preferences Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Preferences</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#preferencesModal">Edit</button>
+                </div>
+                <div class="card-body">
+                    <p><strong>Learning Style:</strong> {{user.LearningStyle}} </p>
+                    <p><strong>Primary Purpose:</strong> {{user.PrimaryPurpose}} </p>
+                    <p><strong>Study Schedule:</strong> {{user.StudySchedule}} </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Skills</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#skillsModal">Edit</button>
+                </div>
+                <div class="card-body">
+                    <p><strong>Beginner:</strong>
+                        <span id="beginner-skills"></span>
+                    </p>
+                    <p><strong>Intermediate:</strong>
+                        <span id="intermediate-skills"></span>
+                    </p>
+                    <p><strong>Advanced:</strong>
+                        <span id="advanced-skills"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Goals Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h5>Career Goals</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#careerGoalsModal">Edit</button>
+                </div>
+                <div class="card-body">
+                    <p><strong>Desired Job Title:</strong> {{user.DesiredJobTitle}} </p>
+                    <p><strong>Target Industry:</strong> {{user.TargetIndustry}} </p>
+                    <p><strong>Target Salary:</strong> {{user.TargetSalary}} </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card glass-card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5>Password Management</h5>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#passwordModal">Edit</button>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label"><strong>Current
+                                        Password</strong></label>
+                                <input type="password" class="form-control" id="currentPassword"
+                                    placeholder="Enter current password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label"><strong>New Password</strong></label>
+                                <input type="password" class="form-control" id="newPassword"
+                                    placeholder="Enter new password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label"><strong>Confirm
+                                        Password</strong></label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                    placeholder="Re-enter new password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="captcha" class="form-label"><strong>Captcha</strong></label>
+                                <input type="text" class="form-control" id="captcha" placeholder="Enter captcha"
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modals -->
+
+    <!-- Personal Info Modal -->
+    <div class="modal fade" id="personalInfoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Personal Info</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div class="modal fade" id="educationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Educational Background</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Education Status</label>
+                            <input type="text" class="form-control" id="status">
+                        </div>
+                        <div class="mb-3">
+                            <label for="school" class="form-label">School</label>
+                            <input type="text" class="form-control" id="school">
+                        </div>
+                        <div class="mb-3">
+                            <label for="topics" class="form-label">Topics of Interest</label>
+                            <textarea class="form-control" id="topics"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preferences Modal -->
+    <div class="modal fade" id="preferencesModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Preferences</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="style" class="form-label">Learning Style</label>
+                            <input type="text" class="form-control" id="style">
+                        </div>
+                        <div class="mb-3">
+                            <label for="purpose" class="form-label">Primary Purpose</label>
+                            <input type="text" class="form-control" id="purpose">
+                        </div>
+                        <div class="mb-3">
+                            <label for="schedule" class="form-label">Study Schedule</label>
+                            <input type="text" class="form-control" id="schedule">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Modal -->
+    <div class="modal fade" id="skillsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Skills</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="skills" class="form-label">Skills</label>
+                            <input type="text" class="form-control" id="skills">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Goals Modal -->
+    <div class="modal fade" id="careerGoalsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Career Goals</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="jobTitle" class="form-label">Desired Job Title</label>
+                            <input type="text" class="form-control" id="jobTitle">
+                        </div>
+                        <div class="mb-3">
+                            <label for="industry" class="form-label">Target Industry</label>
+                            <input type="text" class="form-control" id="industry">
+                        </div>
+                        <div class="mb-3">
+                            <label for="salary" class="form-label">Target Salary</label>
+                            <input type="text" class="form-control" id="salary">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+    const renderSkills = (skills, levels) => {
+        const levelMap = {
+            "Beginner": document.getElementById("beginner-skills"),
+            "Intermediate": document.getElementById("intermediate-skills"),
+            "Advanced": document.getElementById("advanced-skills")
+        };
+
+        const badgeColors = {
+            "Beginner": "bg-secondary",
+            "Intermediate": "bg-warning",
+            "Advanced": "bg-success"
+        };
+
+        skills.forEach((skill, index) => {
+            const level = levels[index];
+            if (levelMap[level]) {
+                const badge = document.createElement("span");
+                badge.className = `badge ${badgeColors[level]} me-2`;
+                badge.textContent = skill;
+                levelMap[level].appendChild(badge);
+            }
+        });
+    };
+
+    // Convert Python objects to JavaScript objects using |tojson
+    const skills = "{{ user.Skills }}";
+    const levels = "{{ user.ProficiencyLevels }}";
+
+    renderSkills(skills.split(','), levels.split(','));
+</script>
+
+{% endblock %}

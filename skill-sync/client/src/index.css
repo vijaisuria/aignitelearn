@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default theme (dark) */
+:root {
+  --background-color: #001f3f;
+  --text-color: #ffffff;
+  --navbar-background: rgba(255, 255, 255, 0.15);
+  --navbar-text-color: #ffffff;
+  --navbar-hover-color: #82cfff;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --background-image: radial-gradient(
+    circle,
+    #6a0dad,
+    #4a229e,
+    #2c288c,
+    #112977,
+    #002660,
+    #002654,
+    #002447,
+    #042239,
+    #0c2334,
+    #14242f,
+    #1c252a,
+    #232526
+  );
+}
+
+[data-theme="light"] {
+  --background-color: #ffffff;
+  --text-color: #001f3f;
+  --navbar-background: rgba(0, 0, 0, 0.05);
+  --navbar-text-color: #001f3f;
+  --navbar-hover-color: #0056b3;
+  --background-image: linear-gradient(
+    to right top,
+    #001f3f,
+    #464e6b,
+    #828499,
+    #c0c0cb,
+    #ffffff
+  );
+}
+
+body {
+  font-family: "Mona Sans", serif;
+  background-color: var(--background-color);
+  background: center / cover no-repeat var(--background-image);
+  color: var(--text-color);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* High z-index for popup */
+}
+
+.modal-content {
+  background: white;
+  color: black;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}

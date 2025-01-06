@@ -1,0 +1,13 @@
+[project]
+name = "aignitelearn-flask"
+version = "0.1.0"
+description = "An AI powered platform, AIgniteLearn, which addresses the pressing challenge in education sector"
+
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.dependencies]
+dependencies = "requirements.txt"
+
+[project.optional-dependencies]
+dev-requirements = {file = "requirements-dev.txt"}

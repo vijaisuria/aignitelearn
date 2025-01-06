@@ -1,0 +1,515 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Assistant Header */
+.assistant-header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.assistant-subheader {
+  font-size: 20px;
+  color: #ebe7f2;
+  text-align: left;
+}
+
+/* Button Styles */
+.btn-ai {
+  background-color: #a385ff;
+  color: white;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.btn-ai:hover {
+  background-color: #8a6be9;
+}
+
+.btn-outline-custom {
+  border-radius: 20px;
+  border: 1px solid #0f022d;
+  color: #1d0556;
+  background-color: rgb(207, 206, 211);
+}
+
+.btn-outline-custom:hover {
+  background-color: #d4c9e785;
+  color: rgb(3, 75, 106);
+}
+
+/* Header Section */
+.header-container {
+  margin: 20px 10px;
+  text-align: left;
+}
+
+/* Profile Section */
+.profile-section {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #7937ac;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-picture:hover {
+  transform: scale(1.1);
+}
+
+/* Card Styles */
+.card {
+  border-radius: 15px;
+  background: linear-gradient(135deg, #28328095, #410b8492, #303131c2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+}
+
+/* Statistics Section */
+.stats-container {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.37);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stat-box {
+  background: #a792d19d;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  padding: 10px;
+  width: 100%;
+}
+
+.stat-box:hover {
+  transform: scale(1.05);
+}
+
+.stat-box h4 {
+  font-size: 14px;
+  color: #050a6b;
+  margin-bottom: 3px;
+}
+
+.stat-box p {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  color: #3a3a3a;
+}
+
+/* Charts */
+.graphBox {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  background: #f9f9f993;
+  border-radius: 15px;
+  margin-top: 10px;
+  background-color: rgba(209, 214, 240, 0.573);
+}
+
+.graphBox .box {
+  flex: 1;
+  max-width: 40%;
+  background: linear-gradient(
+    150deg,
+    #a9a5e082,
+    #6866ab77,
+    #b592cf71,
+    #a290c46b,
+    rgba(0, 0, 0, 0.418)
+  );
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.graphBox .box1 {
+  flex: 1;
+  max-width: 50%;
+  background: linear-gradient(
+    150deg,
+    #a9a5e082,
+    #6866ab77,
+    #b592cf71,
+    #a290c46b
+  );
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.graphBox .box2 {
+  flex: 1;
+  max-width: 50%;
+  background: linear-gradient(
+    150deg,
+    #a9a5e082,
+    #6866ab77,
+    #b592cf71,
+    #a290c46b
+  );
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+/* Calendar */
+.calendar-container {
+  flex: 1;
+  max-width: 100%;
+  background: linear-gradient(
+    150deg,
+    #a9a5e082,
+    #6866ab77,
+    #b592cf71,
+    #a290c46b
+  );
+  padding: 15px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 5px; /* Add some space above for smaller screens */
+}
+
+.calendar-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #161f7f;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-btn {
+  background-color: #161f7f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.calendar-btn:hover {
+  background-color: #161f7f8c;
+}
+
+.calendar-month {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px; /* Adjust gap for better fit on smaller screens */
+  text-align: center;
+  margin-top: 10px; /* Add some spacing between grid and header */
+}
+
+.calendar-day {
+  font-weight: bold;
+  color: #231480;
+  margin-bottom: 5px;
+}
+
+.calendar-date {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f5f5f570;
+  color: #072e55;
+  cursor: pointer;
+}
+
+.calendar-date:hover {
+  background-color: #161f7f8c;
+  color: white;
+}
+
+/* Floating Buttons Container */
+.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+/* Common Button Styles */
+.ai-float-button,
+.help-float-button {
+  width: 40px;
+  height: 40px;
+  background-color: #4dd0e1;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.ai-float-button img,
+.help-float-button img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.ai-float-button:hover,
+.help-float-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.ai-float-button {
+  background-color: #4dd0e1;
+}
+
+.help-float-button {
+  background-color: #ffa726;
+}
+
+/* Footer Styles */
+.site-footer {
+  background: linear-gradient(135deg, #0b1a1c, #080d2b);
+  color: #ffffff;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+}
+
+.footer-section.social .social-icons {
+  justify-content: center;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 10px;
+  font-size: 12px;
+}
+
+.progress-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(#4c6baf 0% 0%, #e6e6e6 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+}
+
+.progress-circle::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.progress-text {
+  position: absolute;
+  z-index: 1;
+  font-size: 1rem;
+  color: #07294b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .progress-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .progress-circle::after {
+    width: 60px;
+    height: 60px;
+  }
+
+  .progress-text {
+    font-size: 0.9rem;
+  }
+
+  .graphBox {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .graphBox .box {
+    max-width: 100%;
+  }
+
+  .graphBox .box1,
+  .graphBox .box2 {
+    max-width: 100%;
+  }
+
+  .calendar-container {
+    padding: 15px;
+  }
+
+  .calendar-title {
+    font-size: 16px; /* Slightly smaller font size */
+  }
+
+  .calendar-grid {
+    gap: 3px; /* Reduce gap further on smaller screens */
+  }
+
+  .calendar-day {
+    font-size: 12px; /* Smaller font size for day names */
+  }
+
+  .calendar-date {
+    padding: 6px; /* Smaller padding for dates */
+    font-size: 12px; /* Smaller font size for dates */
+  }
+
+  .calendar-btn {
+    padding: 5px 8px; /* Smaller button size */
+  }
+
+  .calendar-month {
+    font-size: 14px; /* Smaller month font size */
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .stat-box {
+    width: 100%;
+  }
+
+  .assistant-header {
+    font-size: 20px;
+  }
+
+  .assistant-subheader {
+    font-size: 18px;
+  }
+
+  .profile-picture {
+    width: 60px;
+    height: 60px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .header-container {
+    margin: 15px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .progress-circle::after {
+    width: 45px;
+    height: 45px;
+  }
+
+  .progress-text {
+    font-size: 0.8rem;
+  }
+
+  .ai-float-button,
+  .help-float-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .calendar-title {
+    font-size: 14px; /* Even smaller font size */
+  }
+
+  .calendar-grid {
+    gap: 2px; /* Minimal gap for very small screens */
+  }
+
+  .calendar-day {
+    font-size: 10px; /* Even smaller font size for day names */
+  }
+
+  .calendar-date {
+    padding: 5px; /* Even smaller padding for dates */
+    font-size: 10px; /* Even smaller font size for dates */
+  }
+
+  .calendar-btn {
+    padding: 4px 7px; /* Smaller button size */
+  }
+
+  .calendar-month {
+    font-size: 12px; /* Smaller month font size */
+  }
+
+  .ai-float-button img,
+  .help-float-button img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .floating-buttons {
+    gap: 10px;
+  }
+}

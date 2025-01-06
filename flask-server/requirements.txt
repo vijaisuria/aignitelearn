@@ -1,0 +1,14 @@
+flask
+flask-cors
+azure-ai-inference
+python-dotenv
+PyMySQL
+flask_sqlalchemy
+flask_migrate
+pymongo[srv]
+Flask-PyMongo
+flask-wtf
+flask-executor
+azure-communication-email
+itsdangerous
+email-validator

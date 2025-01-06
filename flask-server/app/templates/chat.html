@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+
+        .user {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .bot {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chatbot Application</h1>
+    <div id="chat-box"></div>
+    <textarea id="user-input" rows="3" placeholder="Type your message here..."></textarea><br>
+    <button id="send-button">Send</button>
+    <button id="reset-button">Reset</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- Markdown Renderer -->
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const resetButton = document.getElementById('reset-button');
+
+        function appendMessage(sender, message, isMarkdown = false) {
+            const messageElement = document.createElement('div');
+            messageElement.className = sender;
+
+            // Render as Markdown if specified
+            if (isMarkdown) {
+                messageElement.innerHTML = `${sender === 'user' ? '<strong>You:</strong>' : '<strong>Bot:</strong>'} ${marked.parse(message)}`;
+            } else {
+                messageElement.innerHTML = `${sender === 'user' ? '<strong>You:</strong>' : '<strong>Bot:</strong>'} ${message}`;
+            }
+
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        sendButton.addEventListener('click', async () => {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            appendMessage('user', message);
+            userInput.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message }),
+                });
+
+                if (!response.body) {
+                    appendMessage('bot', 'Error: No response body.');
+                    return;
+                }
+
+                // Stream the response
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let botReply = '';
+                let isFirstChunk = true;
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Decode the chunk
+                    const chunk = decoder.decode(value);
+                    botReply += chunk;
+
+                    // For the first chunk, prepend "Bot:"
+                    if (isFirstChunk) {
+                        appendMessage('bot', `Bot: ${chunk}`, true); // Render as Markdown
+                        isFirstChunk = false;
+                    } else {
+                        const lastMessage = chatBox.lastChild;
+                        if (lastMessage && lastMessage.className === 'bot') {
+                            // Update the last message dynamically
+                            lastMessage.innerHTML = `<strong>Bot:</strong> ${marked.parse(botReply)}`;
+                        }
+                    }
+                }
+            } catch (error) {
+                appendMessage('bot', `Error: ${error.message}`);
+            }
+        });
+
+        resetButton.addEventListener('click', async () => {
+            const response = await fetch('/reset', { method: 'POST' });
+            const data = await response.json();
+            if (data.status) {
+                chatBox.innerHTML = '';
+                appendMessage('bot', 'Conversation history reset.');
+            }
+        });
+    </script>
+</body>
+
+
+</html>

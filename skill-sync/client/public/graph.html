@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+        }
+
+        .node circle {
+            fill: #69b3a2;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        .node text {
+            font: 12px sans-serif;
+            fill: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="chart" width="1000" height="1000"></svg>
+
+    <script>
+        d3.json("output.json").then(function (data) {
+            // Flatten all skills into a list and keep track of their prerequisites to avoid repetition
+            const skillNodes = {};
+            data.forEach(field => {
+                field.skills.forEach(skill => {
+                    // Create a node for the skill if it doesn't exist already
+                    if (!skillNodes[skill.skill]) {
+                        skillNodes[skill.skill] = { name: skill.skill, children: [] };
+                    }
+
+                    // For each prerequisite, ensure that the prerequisite node exists
+                    skill.prerequisites.forEach(prerequisite => {
+                        if (!skillNodes[prerequisite]) {
+                            skillNodes[prerequisite] = { name: prerequisite, children: [] };
+                        }
+
+                        // Connect the current skill to its prerequisite node
+                        skillNodes[prerequisite].children.push(skillNodes[skill.skill]);
+                    });
+                });
+            });
+
+            // Construct root node
+            const rootNode = {
+                name: "Roadmap",
+                children: Object.values(skillNodes).filter(node => !node.name.includes(" ")), // Exclude nodes with spaces (e.g., field)
+            };
+
+            console.log(rootNode);
+
+            const tooltip = d3.select("body").append("div")
+                .style("position", "absolute")
+                .style("padding", "8px")
+                .style("background", "#ddd")
+                .style("border", "1px solid #999")
+                .style("border-radius", "4px")
+                .style("visibility", "hidden");
+
+            const width = 1000, height = 1000, radius = width / 2;
+            const tree = d3.tree()
+                .size([2 * Math.PI, radius - 150]) // Increased the radius for more spacing
+                .separation((a, b) => (a.parent === b.parent ? 1 : 2)); // Added separation logic
+
+            const root = d3.hierarchy(rootNode);
+            tree(root);
+
+            const svg = d3.select("#chart")
+                .attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+            const links = svg.append("g")
+                .selectAll("path")
+                .data(root.links())
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", d3.linkRadial()
+                    .angle(d => d.x)
+                    .radius(d => d.y)
+                );
+
+            const nodes = svg.append("g")
+                .selectAll("g")
+                .data(root.descendants())
+                .enter().append("g")
+                .attr("transform", d => `
+              rotate(${(d.x * 180 / Math.PI - 90)})
+              translate(${d.y},0)
+            `)
+                .attr("class", "node");
+
+            nodes.append("circle")
+                .attr("r", 5)
+                .on("mouseover", function (event, d) {
+                    d3.select(this)
+                        .transition().duration(300)
+                        .attr("r", 8)
+                        .style("fill", "#f00");
+                    tooltip
+                        .style("visibility", "visible")
+                        .html(d.data.name);
+                })
+                .on("mousemove", function (event) {
+                    tooltip
+                        .style("top", (event.pageY + 5) + "px")
+                        .style("left", (event.pageX + 5) + "px");
+                })
+                .on("mouseout", function () {
+                    d3.select(this)
+                        .transition().duration(300)
+                        .attr("r", 5)
+                        .style("fill", "#69b3a2");
+                    tooltip.style("visibility", "hidden");
+                });
+
+            nodes.append("text")
+                .attr("dy", "0.31em")
+                .attr("x", d => d.x < Math.PI ? 8 : -8)
+                .style("text-anchor", d => d.x < Math.PI ? "start" : "end")
+                .attr("transform", d => d.x >= Math.PI ? "rotate(180)" : null)
+                .text(d => d.data.name);
+        });
+    </script>
+</body>
+
+</html>
