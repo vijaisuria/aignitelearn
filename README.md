@@ -8,7 +8,6 @@ AIgniteLearn is a platform designed to assist developers in their learning journ
 
 - **Personalized AI Trainer**:  
   Provides real-time mentoring, career guidance, and progress feedback on learning activities.
-  
 - **Empathy AI**:  
   Detects emotional states and offers motivational support to help developers stay focused and motivated.
 
@@ -37,21 +36,25 @@ AIgniteLearn is a platform designed to assist developers in their learning journ
 
 ## Technologies Used
 
-- **Frontend**:  
+- **Frontend**:
+
   - **React**, **Redux**, **React Router**, **D3.js**
 
-- **Backend**:  
+- **Backend**:
+
   - **Flask**, **Node.js**, **Express.js**
 
-- **Database**:  
+- **Database**:
+
   - **MySQL**, **Cosmos DB**
 
 - **Cloud & Azure Services**:
+
   - **Azure App Services** (Backend Deployment)
   - **Azure Static Web Apps** (Frontend Deployment)
   - **Azure Communication Services** (Email Notifications)
   - **Azure Cognitive Services** (Speech-to-Text, Translator, Immersive Reader)
-  - **Azure OpenAI Models** (GPT-3, GPT-4)
+  - **Azure OpenAI Models** (GPT-4o, GPT-o1)
   - **Azure Machine Learning** (Personalization Models)
   - **Azure Speech Avatar** (Mentor Mode Interaction)
 
@@ -73,38 +76,38 @@ AIgniteLearn is a platform designed to assist developers in their learning journ
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-repo/AIgniteLearn.git
-    cd AIgniteLearn
-    ```
+   ```bash
+   git clone https://github.com/vijaisuria/AIgniteLearn.git
+   cd AIgniteLearn
+   ```
 
 2. Install dependencies for the frontend:
 
-    ```bash
-    cd skill-sync/client
-    npm install
-    ```
+   ```bash
+   cd skill-sync/client
+   npm install
+   ```
 
 3. Install dependencies for the backend:
 
-    ```bash
-    cd flask-server
-    pip install -r requirements.txt
-    ```
+   ```bash
+   cd flask-server
+   pip install -r requirements.txt
+   ```
 
 4. Configure environment variables for **Azure Services** (Refer to `.env.example` for variables).
 
 5. Run the frontend:
 
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 6. Run the backend:
 
-    ```bash
-    flask run
-    ```
+   ```bash
+   flask run
+   ```
 
 ---
 
@@ -124,7 +127,7 @@ AIgniteLearn is a platform designed to assist developers in their learning journ
   pytest
   ```
 
-- **Manual Testing**:  
+- **Manual Testing**:
   - Test app functionality on different browsers (Chrome, Firefox, Safari).
   - Ensure accessibility features (e.g., Immersive Reader, AI Speech) are working.
   - Perform edge case testing (invalid inputs, API failure, timeouts).
@@ -147,6 +150,15 @@ We welcome contributions to the project! If you’d like to contribute:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Collaborators
+
+- [Vijai Suria](https://linkedin.com/in/vijaisuria)
+- [Tejeshree](https://linkedin.com/)
+- [Neelavathy](https://linkedin.com/)
+- [Kavyadharshene](https://linkedin.com/)
 
 ---
 
